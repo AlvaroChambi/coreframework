@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">CoreFramework</string>
     <string name="search_default_hint">Search</string>
+    <string name="save_action_text">SAVE</string>
 
+    <string name="error_message_retry">TRY AGAIN</string>
 </resources>

@@ -75,7 +75,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:text="@string/configuration_save_action_text">
+        app:text="@string/save_action_text">
     </es.developer.achambi.coreframework.ui.FloatingTextButton>
 
 
