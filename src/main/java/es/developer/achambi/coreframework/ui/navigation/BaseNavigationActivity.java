@@ -24,7 +24,7 @@ public abstract class BaseNavigationActivity extends AppCompatActivity
     }
 
     public abstract int provideMenuResource();
-    public abstract NavigationFragment provideEntryFragment();
+    public abstract Fragment provideEntryFragment();
 
     protected void replaceFragment( Fragment fragment, String tag ) {
         FragmentManager manager = getSupportFragmentManager();
