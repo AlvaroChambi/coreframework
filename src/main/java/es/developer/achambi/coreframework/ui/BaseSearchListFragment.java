@@ -53,10 +53,17 @@ public abstract class BaseSearchListFragment extends BaseRequestFragment {
             onHeaderSetup( header );
         }
         recyclerView = view.findViewById(R.id.base_search_recycler_view);
+        ViewGroup.MarginLayoutParams marginParams =
+                (ViewGroup.MarginLayoutParams) recyclerView.getLayoutParams();
+        overrideRecyclerViewMargins( marginParams );
+        recyclerView.setLayoutParams( marginParams );
         layoutManager = new LinearLayoutManager(getActivity());
 
         recyclerView.setLayoutManager( layoutManager );
         recyclerView.setAdapter( adapter );
+    }
+
+    protected void overrideRecyclerViewMargins( ViewGroup.MarginLayoutParams marginParams ) {
     }
 
     @Override
