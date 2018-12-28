@@ -5,6 +5,8 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
+import android.support.v7.widget.helper.ItemTouchHelper;
+import android.text.method.Touch;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -15,6 +17,7 @@ import android.view.ViewGroup;
 import es.developer.achambi.coreframework.R;
 import es.developer.achambi.coreframework.utils.GlideApp;
 import es.developer.achambi.coreframework.utils.GlideRequests;
+import es.developer.achambi.coreframework.utils.TouchHelper;
 
 public abstract class BaseSearchListFragment extends BaseRequestFragment {
     private static int NO_ID = -1;
@@ -55,6 +58,10 @@ public abstract class BaseSearchListFragment extends BaseRequestFragment {
         recyclerView = view.findViewById(R.id.base_search_recycler_view);
         ViewGroup.MarginLayoutParams marginParams =
                 (ViewGroup.MarginLayoutParams) recyclerView.getLayoutParams();
+        TouchHelper touchHelper = new TouchHelper( adapter );
+        ItemTouchHelper itemTouchHelper = new ItemTouchHelper( touchHelper );
+        itemTouchHelper.attachToRecyclerView( recyclerView );
+
         overrideRecyclerViewMargins( marginParams );
         recyclerView.setLayoutParams( marginParams );
         layoutManager = new LinearLayoutManager(getActivity());

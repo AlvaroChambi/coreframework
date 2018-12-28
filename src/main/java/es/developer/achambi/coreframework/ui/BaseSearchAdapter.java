@@ -94,6 +94,10 @@ public class BaseSearchAdapter extends RecyclerView.Adapter{
         return data.get(position).getViewType();
     }
 
+    public void onItemSwipped( int position ) {
+        data.removeItemAt( position );
+    }
+
     public void updateData() {
         ArrayList<SearchListData> dataList = adapter.buildData();
         data.beginBatchedUpdates();

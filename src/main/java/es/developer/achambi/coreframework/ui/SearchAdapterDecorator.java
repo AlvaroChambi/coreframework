@@ -100,4 +100,5 @@ public abstract class SearchAdapterDecorator<D extends SearchListData,VH extends
     public abstract VH createViewHolder( View rootView );
     public abstract void bindViewHolder( VH holder, D item );
     public abstract int getAdapterViewType();
+    public void onItemSwipped( int position ) {}
 }
