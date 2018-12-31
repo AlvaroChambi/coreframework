@@ -1,13 +1,12 @@
 package es.developer.achambi.coreframework.utils;
 
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
 
 import es.developer.achambi.coreframework.ui.BaseSearchAdapter;
 
-public class TouchHelper extends ItemTouchHelper.Callback {
+public abstract class TouchHelper extends ItemTouchHelper.Callback {
     private BaseSearchAdapter adapter;
 
     public TouchHelper( BaseSearchAdapter adapter ) {
@@ -17,7 +16,7 @@ public class TouchHelper extends ItemTouchHelper.Callback {
     @Override
     public int getMovementFlags(@NonNull RecyclerView recyclerView,
                                 @NonNull RecyclerView.ViewHolder viewHolder) {
-        int swipeFlags = ItemTouchHelper.START | ItemTouchHelper.END;
+        int swipeFlags = ItemTouchHelper.END;
         return makeFlag(ItemTouchHelper.ACTION_STATE_SWIPE, swipeFlags);
     }
 
@@ -31,10 +30,5 @@ public class TouchHelper extends ItemTouchHelper.Callback {
     @Override
     public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int i) {
         adapter.onItemSwipped( viewHolder.getAdapterPosition() );
-    }
-
-    @Override
-    public void onSelectedChanged(@Nullable RecyclerView.ViewHolder viewHolder, int actionState) {
-        super.onSelectedChanged(viewHolder, actionState);
     }
 }

@@ -58,9 +58,11 @@ public abstract class BaseSearchListFragment extends BaseRequestFragment {
         recyclerView = view.findViewById(R.id.base_search_recycler_view);
         ViewGroup.MarginLayoutParams marginParams =
                 (ViewGroup.MarginLayoutParams) recyclerView.getLayoutParams();
-        TouchHelper touchHelper = new TouchHelper( adapter );
-        ItemTouchHelper itemTouchHelper = new ItemTouchHelper( touchHelper );
-        itemTouchHelper.attachToRecyclerView( recyclerView );
+        TouchHelper touchHelper = provideItemTouchHelper(adapter);
+        if( touchHelper != null ) {
+            ItemTouchHelper itemTouchHelper = new ItemTouchHelper( touchHelper );
+            itemTouchHelper.attachToRecyclerView( recyclerView );
+        }
 
         overrideRecyclerViewMargins( marginParams );
         recyclerView.setLayoutParams( marginParams );
@@ -68,6 +70,10 @@ public abstract class BaseSearchListFragment extends BaseRequestFragment {
 
         recyclerView.setLayoutManager( layoutManager );
         recyclerView.setAdapter( adapter );
+    }
+
+    protected TouchHelper provideItemTouchHelper(BaseSearchAdapter adapter) {
+        return null;
     }
 
     protected void overrideRecyclerViewMargins( ViewGroup.MarginLayoutParams marginParams ) {
