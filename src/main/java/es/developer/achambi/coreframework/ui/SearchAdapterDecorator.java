@@ -1,5 +1,7 @@
 package es.developer.achambi.coreframework.ui;
 
+import android.os.Build;
+import android.support.annotation.RequiresApi;
 import android.support.v7.util.SortedList;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -16,9 +18,15 @@ public abstract class SearchAdapterDecorator<D extends SearchListData,VH extends
     public interface OnItemClickedListener<D> {
         void onItemClicked( D item );
     }
+
+    public interface OnViewClickedListener<D,VH> {
+        void onViewClicked( D item, VH viewHolder );
+    }
+
     protected SearchAdapterDecorator<D,VH> adapter;
     protected ArrayList<D> data;
     private OnItemClickedListener<D> listener;
+    private OnViewClickedListener<D,VH> viewClickedListener;
 
     public SearchAdapterDecorator( SearchAdapterDecorator<D,VH> adapter ) {
         this.adapter = adapter;
@@ -38,22 +46,31 @@ public abstract class SearchAdapterDecorator<D extends SearchListData,VH extends
         this.data = data;
     }
 
+    public void setViewClickedListener( OnViewClickedListener<D, VH> viewClickedListener ) {
+        this.viewClickedListener = viewClickedListener;
+    }
+
     public void setListener( OnItemClickedListener<D> listener ) {
         this.listener = listener;
     }
 
-    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType,
+    RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType,
                                                       final SortedList rootData ) {
         if( isValidAdapter( viewType ) ) {
             View rootView = LayoutInflater.from(parent.getContext())
                     .inflate(getLayoutResource(), parent, false);
-            final RecyclerView.ViewHolder viewHolder = createViewHolder( rootView );
-            viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+            final VH viewHolder = createViewHolder( rootView );
+            overrideClickableView(viewHolder).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     int position = viewHolder.getAdapterPosition();
-                    if( position != NO_POSITION && listener != null ) {
-                        listener.onItemClicked( (D)rootData.get( position ) );
+                    if( position != NO_POSITION ) {
+                        if( listener != null ) {
+                            listener.onItemClicked( (D)rootData.get( position ) );
+                        } else if( viewClickedListener != null ) {
+                            viewClickedListener
+                                    .onViewClicked( (D)rootData.get( position ), viewHolder );
+                        }
                     }
                 }
             });
@@ -62,7 +79,11 @@ public abstract class SearchAdapterDecorator<D extends SearchListData,VH extends
         return adapter.onCreateViewHolder( parent, viewType, rootData );
     }
 
-    public void onBindViewHolder( RecyclerView.ViewHolder holder, final SearchListData item) {
+    protected View overrideClickableView( RecyclerView.ViewHolder viewHolder ) {
+        return viewHolder.itemView;
+    }
+
+    void onBindViewHolder( RecyclerView.ViewHolder holder, final SearchListData item) {
         if( item.getViewType() == getAdapterViewType() ) {
             bindViewHolder( (VH)holder, (D)item );
         } else {
