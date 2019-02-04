@@ -11,6 +11,7 @@ import es.developer.achambi.coreframework.ui.BaseSearchAdapter;
 public abstract class SwipeTouchHelperCallback extends ItemTouchHelper.Callback {
     private BaseSearchAdapter adapter;
     protected abstract int getViewHolderForegroundResource();
+    protected abstract void onItemSwiped(RecyclerView.ViewHolder viewHolder);
 
     public SwipeTouchHelperCallback(BaseSearchAdapter adapter ) {
         this.adapter = adapter;
@@ -32,7 +33,7 @@ public abstract class SwipeTouchHelperCallback extends ItemTouchHelper.Callback 
 
     @Override
     public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int i) {
-        adapter.onItemSwipped( viewHolder.getAdapterPosition() );
+        onItemSwiped( viewHolder );
     }
 
     @Override
