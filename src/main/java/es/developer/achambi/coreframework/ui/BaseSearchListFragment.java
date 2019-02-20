@@ -94,7 +94,8 @@ public abstract class BaseSearchListFragment extends BaseRequestFragment {
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                return false;
+                onQueryTextChanged( newText );
+                return true;
             }
         });
         MenuItem item = menu.findItem(R.id.overview_search_action);
@@ -122,6 +123,8 @@ public abstract class BaseSearchListFragment extends BaseRequestFragment {
     }
 
     public void onQueryTextSubmitted(String query){}
+
+    public void onQueryTextChanged(String newText){}
 
     public void onSearchFinished(){}
 
