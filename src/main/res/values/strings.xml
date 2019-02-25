@@ -6,4 +6,6 @@
     <string name="profile_activity_title">Profile</string>
     <string name="user_logout_text">Logout</string>
     <string name="error_message_retry">TRY AGAIN</string>
+
+    <string name="empty_value">-</string>
 </resources>
