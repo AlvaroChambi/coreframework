@@ -28,6 +28,11 @@ public class FloatingTextButton extends FrameLayout {
         init(context, attrs);
     }
 
+    public void setText(int resource) {
+        TextView text = findViewById(R.id.floating_button_text);
+        text.setText( resource );
+    }
+
     private void init( Context context, AttributeSet attributeSet ) {
         LayoutInflater inflater = LayoutInflater.from(context);
         inflater.inflate(R.layout.floating_text_button_layout, this);
