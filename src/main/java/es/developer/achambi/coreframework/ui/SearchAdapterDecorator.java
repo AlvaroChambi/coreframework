@@ -55,28 +55,32 @@ public abstract class SearchAdapterDecorator<D extends SearchListData,VH extends
     }
 
     RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType,
-                                                      final SortedList rootData ) {
+                                                      final SortedList<D> rootData ) {
         if( isValidAdapter( viewType ) ) {
             View rootView = LayoutInflater.from(parent.getContext())
                     .inflate(getLayoutResource(), parent, false);
             final VH viewHolder = createViewHolder( rootView );
-            overrideClickableView(viewHolder).setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    int position = viewHolder.getAdapterPosition();
-                    if( position != NO_POSITION ) {
-                        if( listener != null ) {
-                            listener.onItemClicked( (D)rootData.get( position ) );
-                        } else if( viewClickedListener != null ) {
-                            viewClickedListener
-                                    .onViewClicked( (D)rootData.get( position ), viewHolder );
-                        }
-                    }
-                }
-            });
+            registerListeners( viewHolder, rootData );
             return viewHolder;
         }
         return adapter.onCreateViewHolder( parent, viewType, rootData );
+    }
+
+    protected void registerListeners( final VH viewHolder, final SortedList<D> rootData ) {
+        overrideClickableView(viewHolder).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int position = viewHolder.getAdapterPosition();
+                if( position != NO_POSITION ) {
+                    if( listener != null ) {
+                        listener.onItemClicked( rootData.get( position ) );
+                    } else if( viewClickedListener != null ) {
+                        viewClickedListener
+                                .onViewClicked( rootData.get( position ), viewHolder );
+                    }
+                }
+            }
+        });
     }
 
     protected View overrideClickableView( RecyclerView.ViewHolder viewHolder ) {
