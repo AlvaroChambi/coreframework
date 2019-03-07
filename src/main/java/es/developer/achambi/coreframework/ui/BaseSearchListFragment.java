@@ -44,6 +44,7 @@ public abstract class BaseSearchListFragment extends BaseRequestFragment {
         ViewGroup root = ((ViewGroup) super.onCreateView(inflater, container, savedInstanceState));
         if( getHeaderLayoutResource() != NO_ID ) {
             header = root.findViewById(R.id.base_search_header_frame);
+            header.setVisibility(View.VISIBLE);
             inflater.inflate( getHeaderLayoutResource(), header );
         }
         return root;
