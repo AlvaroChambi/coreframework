@@ -19,7 +19,6 @@ public class MainExecutor extends ThreadPoolExecutor {
 
     public void executeRequest(final Request request, final ResponseHandler responseHandler ) {
         execute(new Runnable() {
-            @SuppressWarnings("ConstantConditions")
             @Override
             public void run() {
                 try {
