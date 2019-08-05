@@ -7,7 +7,7 @@ import com.google.firebase.auth.FirebaseAuth;
 
 import es.developer.achambi.coreframework.ui.Presenter;
 
-public class BaseProfilePresenter extends Presenter {
+public class BaseProfilePresenter{
     private static final String PROFILE_NAME_SAVED_STATE_KEY = "profile_name_key";
     private String name;
 
@@ -20,17 +20,5 @@ public class BaseProfilePresenter extends Presenter {
 
     public Uri getPhotoUrl() {
         return FirebaseAuth.getInstance().getCurrentUser().getPhotoUrl();
-    }
-
-    @Override
-    public void onSaveInstanceState(Bundle bundle) {
-        super.onSaveInstanceState(bundle);
-        bundle.putString( PROFILE_NAME_SAVED_STATE_KEY, name );
-    }
-
-    @Override
-    public void onRestoreInstanceState(Bundle bundle) {
-        super.onRestoreInstanceState(bundle);
-        name = bundle.getString( PROFILE_NAME_SAVED_STATE_KEY );
     }
 }

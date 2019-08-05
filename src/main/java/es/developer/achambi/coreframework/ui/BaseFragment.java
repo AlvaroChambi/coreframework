@@ -16,7 +16,6 @@ public abstract class BaseFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
-        setupPresenter();
     }
 
     @Nullable
@@ -32,9 +31,6 @@ public abstract class BaseFragment extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        if(savedInstanceState != null) {
-            onRestoreInstanceState(savedInstanceState);
-        }
         if( !isViewRecreated() ) {
             onViewSetup(view, savedInstanceState);
         }
@@ -42,26 +38,6 @@ public abstract class BaseFragment extends Fragment {
 
     public boolean isViewRecreated() {
         return timesViewCreated > 1;
-    }
-
-    @Override
-    public void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        setupPresenter().onSaveInstanceState(outState);
-    }
-
-    /**
-     * Called whenever the fragment state is being recreated, bundle will always be available.
-     * This event always happens after onViewCreated() is called.
-     * Call super to allow presenter to restore it's state
-     * @param savedInstanceState
-     */
-    public void onRestoreInstanceState(Bundle savedInstanceState) {
-        setupPresenter().onRestoreInstanceState(savedInstanceState);
-    }
-
-    public Presenter setupPresenter() {
-        return new NullPresenter();
     }
 
     public abstract int getLayoutResource();

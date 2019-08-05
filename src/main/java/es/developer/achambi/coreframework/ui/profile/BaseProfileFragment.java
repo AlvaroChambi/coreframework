@@ -11,7 +11,6 @@ import com.bumptech.glide.request.RequestOptions;
 import com.google.firebase.auth.FirebaseAuth;
 
 import es.developer.achambi.coreframework.R;
-import es.developer.achambi.coreframework.ui.Presenter;
 import es.developer.achambi.coreframework.ui.navigation.NavigationFragment;
 
 public abstract class BaseProfileFragment extends NavigationFragment implements View.OnClickListener {
@@ -19,16 +18,14 @@ public abstract class BaseProfileFragment extends NavigationFragment implements 
     private BaseProfilePresenter presenter;
 
     @Override
-    public int getLayoutResource() {
-        return R.layout.profile_fragment_layout;
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        presenter = new BaseProfilePresenter();
     }
 
     @Override
-    public Presenter setupPresenter() {
-        if( presenter == null ) {
-            presenter = new BaseProfilePresenter();
-        }
-        return presenter;
+    public int getLayoutResource() {
+        return R.layout.profile_fragment_layout;
     }
 
     @Override

@@ -9,7 +9,6 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 
 public abstract class BaseDialogFragment extends DialogFragment {
-    private int timesViewCreated = 0;
 
     //Forces the dialog decorView to match parent in all cases
     @Override
@@ -23,7 +22,6 @@ public abstract class BaseDialogFragment extends DialogFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(getLayoutResource(), container, false);
-        timesViewCreated++;
         return root;
     }
 
@@ -31,33 +29,6 @@ public abstract class BaseDialogFragment extends DialogFragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         onViewSetup(view, savedInstanceState);
-        if(savedInstanceState != null) {
-            onRestoreInstanceState(savedInstanceState);
-        }
-    }
-
-    @Override
-    public void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        getPresenter().onSaveInstanceState(outState);
-    }
-
-    /**
-     * Called whenever the fragment state is being recreated, bundle will always be available.
-     * This event always happens after onViewCreated() is called.
-     * Call super to allow presenter to restore it's state
-     * @param savedInstanceState
-     */
-    public void onRestoreInstanceState(Bundle savedInstanceState) {
-        getPresenter().onRestoreInstanceState(savedInstanceState);
-    }
-
-    public boolean isViewRecreated() {
-        return timesViewCreated > 1;
-    }
-
-    public Presenter getPresenter() {
-        return new NullPresenter();
     }
 
     public abstract int getLayoutResource();
