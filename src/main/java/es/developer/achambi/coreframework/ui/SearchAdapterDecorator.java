@@ -114,6 +114,10 @@ public abstract class SearchAdapterDecorator<D extends SearchListData,VH extends
         this.data = dataList;
     }
 
+    public ArrayList<D> getData() {
+        return data;
+    }
+
     public boolean isValidAdapter(int viewType ){
         if( getAdapterViewType() == viewType ) {
             return true;

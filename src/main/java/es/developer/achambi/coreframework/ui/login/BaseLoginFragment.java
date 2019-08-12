@@ -10,6 +10,8 @@ import com.firebase.ui.auth.AuthUI;
 import com.firebase.ui.auth.IdpResponse;
 import com.google.firebase.auth.FirebaseAuth;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.Arrays;
 import java.util.List;
 
@@ -27,7 +29,7 @@ public abstract class BaseLoginFragment extends BaseFragment implements View.OnC
     }
 
     @Override
-    public void onViewSetup(View view, @Nullable Bundle savedInstanceState) {
+    public void onViewSetup(@NotNull View view) {
         View loginButton = view.findViewById(R.id.login_button);
         loginButton.setOnClickListener(this);
 

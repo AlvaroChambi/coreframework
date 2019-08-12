@@ -29,7 +29,7 @@ public abstract class BaseProfileFragment extends NavigationFragment implements 
     }
 
     @Override
-    public void onViewSetup(View view, @Nullable Bundle savedInstanceState) {
+    public void onViewSetup(View view) {
         View logoutButton = view.findViewById(R.id.profile_logout_button);
         final TextView profileName = view.findViewById(R.id.profile_user_name_text);
         ImageView profilePhoto = view.findViewById(R.id.profile_photo_image_view);

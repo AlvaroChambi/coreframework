@@ -1,6 +1,7 @@
 package es.developer.achambi.coreframework.ui;
 
 
+import android.os.PersistableBundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.os.Bundle;
@@ -19,6 +20,11 @@ public abstract class BaseActivity extends AppCompatActivity {
         if(savedInstanceState == null) {
             attachFragment();
         }
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
     }
 
     public abstract int getScreenTitle();
