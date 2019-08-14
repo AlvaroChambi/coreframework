@@ -8,10 +8,11 @@ import java.util.concurrent.ThreadPoolExecutor
 import java.util.concurrent.TimeUnit
 
 class MainExecutor private constructor(corePoolSize: Int, maximumPoolSize: Int, keepAliveTime: Long,
-                                       unit: TimeUnit, workQueue: LinkedBlockingQueue<Runnable>)
-    : ThreadPoolExecutor(corePoolSize, maximumPoolSize, keepAliveTime, unit, workQueue) {
+                                            unit: TimeUnit, workQueue: LinkedBlockingQueue<Runnable>)
+    : ThreadPoolExecutor(corePoolSize, maximumPoolSize, keepAliveTime, unit, workQueue),
+        ExecutorInterface {
 
-    fun <T> executeRequest(request: Request<T>, responseHandler: ResponseHandler<T>) {
+    override fun <T> executeRequest(request: Request<T>, responseHandler: ResponseHandler<T>) {
         execute {
             try {
                 postSuccessOnUI(request.perform(), responseHandler)

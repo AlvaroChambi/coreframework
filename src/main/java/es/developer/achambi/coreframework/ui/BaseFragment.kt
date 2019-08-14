@@ -28,7 +28,7 @@ abstract class BaseFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         onViewSetup(view)
         if(savedInstanceState == null) {
-            onDataRequest()
+            onDataSetup()
         }
     }
 
@@ -40,10 +40,9 @@ abstract class BaseFragment : Fragment() {
 
     /**
      * Called one per fragment creation, won't be called if the fragment is recreated, this step is
-     * meant to request data that is going to be needed to display the fragment initial state,
-     * if needed.
+     * meant to request data that is going to be needed to display the fragment initial state
      */
-    open fun onDataRequest(){}
+    open fun onDataSetup(){}
 
     /**
      * Called whenever the fragment state needs to be recreated, won't be called if there's no
