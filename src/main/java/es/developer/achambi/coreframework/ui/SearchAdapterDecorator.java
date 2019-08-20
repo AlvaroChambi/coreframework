@@ -1,7 +1,6 @@
 package es.developer.achambi.coreframework.ui;
 
-import android.os.Build;
-import android.support.annotation.RequiresApi;
+import android.support.annotation.NonNull;
 import android.support.v7.util.SortedList;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -15,6 +14,7 @@ import es.developer.achambi.coreframework.ui.presentation.SearchListData;
 import static android.support.v7.widget.RecyclerView.NO_POSITION;
 
 public abstract class SearchAdapterDecorator<D extends SearchListData,VH extends RecyclerView.ViewHolder> {
+    private static final int DEFAULT_VIEW_TYPE = 0;
     public interface OnItemClickedListener<D> {
         void onItemClicked( D item );
     }
@@ -114,6 +114,10 @@ public abstract class SearchAdapterDecorator<D extends SearchListData,VH extends
         this.data = dataList;
     }
 
+    public void appendData(ArrayList<D> dataList) {
+        this.data.addAll(dataList);
+    }
+
     public ArrayList<D> getData() {
         return data;
     }
@@ -126,8 +130,10 @@ public abstract class SearchAdapterDecorator<D extends SearchListData,VH extends
     }
 
     public abstract int getLayoutResource();
-    public abstract VH createViewHolder( View rootView );
-    public abstract void bindViewHolder( VH holder, D item );
-    public abstract int getAdapterViewType();
+    public abstract VH createViewHolder( @NonNull View rootView );
+    public abstract void bindViewHolder( @NonNull VH holder, @NonNull D item );
+    public int getAdapterViewType() {
+        return DEFAULT_VIEW_TYPE;
+    }
     public void onItemSwipped( int position ) {}
 }
