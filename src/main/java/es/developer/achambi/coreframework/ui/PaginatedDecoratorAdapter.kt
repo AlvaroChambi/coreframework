@@ -1,11 +1,14 @@
 package es.developer.achambi.coreframework.ui
 
+import es.developer.achambi.coreframework.databinding.LoadingItemBinding
+
+import android.databinding.DataBindingUtil
 import android.support.v7.widget.RecyclerView
 import android.view.View
 
 import es.developer.achambi.coreframework.R
 
-class PaginatedDecorator( private val paginatedInterface: PaginatedInterface )
+class PaginatedDecoratorAdapter(private val paginatedInterface: PaginatedInterface )
     : SearchAdapterDecorator<PagePresentation, LoadingHolder>() {
 
 
@@ -14,11 +17,15 @@ class PaginatedDecorator( private val paginatedInterface: PaginatedInterface )
     }
 
     override fun createViewHolder(rootView: View): LoadingHolder {
-        return LoadingHolder(rootView)
+        val binding : LoadingItemBinding? = DataBindingUtil.bind(rootView)
+        return LoadingHolder(binding)
     }
 
     override fun bindViewHolder(holder: LoadingHolder, item: PagePresentation) {
-        paginatedInterface.requestNextPage(item.nextPageIndex)
+        holder.binding?.item = item
+        if(!item.error){
+            paginatedInterface.requestNextPage(item.nextPageIndex)
+        }
     }
 
     override fun getAdapterViewType(): Int {
@@ -30,5 +37,7 @@ interface PaginatedInterface {
     fun requestNextPage(nextPageIndex: Int)
 }
 
-class LoadingHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
+class LoadingHolder(val binding: LoadingItemBinding?) : RecyclerView.ViewHolder(binding!!.root) {
+
+}
 

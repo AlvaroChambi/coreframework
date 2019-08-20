@@ -5,9 +5,12 @@ import android.os.Parcelable
 import es.developer.achambi.coreframework.R
 import es.developer.achambi.coreframework.ui.presentation.SearchListData
 
-class PagePresentation(val nextPageIndex: Int) : SearchListData, Parcelable{
+data class PagePresentation(val nextPageIndex: Int,
+                       val error: Boolean) : SearchListData, Parcelable{
 
-    constructor(parcel: Parcel) : this(parcel.readInt())
+
+    constructor(parcel: Parcel) : this(
+            parcel.readInt(), parcel.readByte() != 0.toByte())
 
     override fun getViewType(): Int {
         return R.id.paginated_item_view_id
@@ -19,6 +22,7 @@ class PagePresentation(val nextPageIndex: Int) : SearchListData, Parcelable{
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         parcel.writeInt(nextPageIndex)
+        parcel.writeByte(if (error) 1 else 0)
     }
 
     override fun describeContents(): Int {
