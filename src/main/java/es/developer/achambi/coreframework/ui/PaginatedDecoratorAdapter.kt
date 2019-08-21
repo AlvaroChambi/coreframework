@@ -37,7 +37,4 @@ interface PaginatedInterface {
     fun requestNextPage(nextPageIndex: Int)
 }
 
-class LoadingHolder(val binding: LoadingItemBinding?) : RecyclerView.ViewHolder(binding!!.root) {
-
-}
-
+class LoadingHolder(val binding: LoadingItemBinding?) : RecyclerView.ViewHolder(binding!!.root)
