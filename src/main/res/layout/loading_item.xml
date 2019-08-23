@@ -7,7 +7,7 @@
         <import type="android.view.View"/>
         <variable
             name="item"
-            type="es.developer.achambi.coreframework.ui.PagePresentation">
+            type="es.developer.achambi.coreframework.ui.pagination.PaginatedPresentation">
         </variable>
     </data>
     <android.support.constraint.ConstraintLayout
