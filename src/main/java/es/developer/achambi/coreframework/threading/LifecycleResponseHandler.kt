@@ -1,6 +1,6 @@
 package es.developer.achambi.coreframework.threading
 
-import android.arch.lifecycle.Lifecycle
+import androidx.lifecycle.Lifecycle
 
 class LifecycleResponseHandler<T>
 (private val lifecycle: Lifecycle, responseHandler: ResponseHandler<T>)

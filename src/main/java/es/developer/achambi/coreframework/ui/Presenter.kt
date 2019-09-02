@@ -1,6 +1,6 @@
 package es.developer.achambi.coreframework.ui
 
-import android.arch.lifecycle.Lifecycle
+import androidx.lifecycle.Lifecycle
 import es.developer.achambi.coreframework.threading.*
 
 abstract class Presenter<T: Screen>(protected val screen: T,

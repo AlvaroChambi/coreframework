@@ -2,8 +2,8 @@ package es.developer.achambi.coreframework.ui.pagination
 
 import es.developer.achambi.coreframework.databinding.LoadingItemBinding
 
-import android.databinding.DataBindingUtil
-import android.support.v7.widget.RecyclerView
+import androidx.databinding.DataBindingUtil
+import androidx.recyclerview.widget.RecyclerView
 import android.view.View
 
 import es.developer.achambi.coreframework.R
@@ -38,4 +38,4 @@ interface PaginatedInterface {
     fun requestNextPage(nextPageIndex: Int)
 }
 
-class LoadingHolder(val binding: LoadingItemBinding?) : RecyclerView.ViewHolder(binding!!.root)
+class LoadingHolder(val binding: LoadingItemBinding?) : androidx.recyclerview.widget.RecyclerView.ViewHolder(binding!!.root)
