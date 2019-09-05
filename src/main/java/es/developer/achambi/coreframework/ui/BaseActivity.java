@@ -1,6 +1,7 @@
 package es.developer.achambi.coreframework.ui;
 
 
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import android.os.Bundle;
@@ -33,7 +34,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         FragmentTransaction transaction = manager.beginTransaction();
 
         Bundle args = getIntent().getBundleExtra(BASE_ARGUMENTS);
-
+        Fragment fragment = getFragment(args);
         transaction.add(R.id.fragment_frame, getFragment(args));
         transaction.commit();
     }
