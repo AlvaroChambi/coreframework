@@ -1,6 +1,10 @@
 package es.developer.achambi.coreframework.ui.presentation;
 
 public interface SearchListData {
-    int getViewType();
-    long getId();
+    default int getViewType() {
+        return 0;
+    }
+    default long getId() {
+        return 0;
+    }
 }
