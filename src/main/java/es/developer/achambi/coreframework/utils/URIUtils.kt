@@ -3,6 +3,8 @@ package es.developer.achambi.coreframework.utils
 import android.content.Context
 import android.database.Cursor
 import android.net.Uri
+import android.os.Parcel
+import android.os.Parcelable
 import android.provider.OpenableColumns
 import android.util.Log
 
@@ -39,13 +41,41 @@ class URIUtils {
                     } else {
                         ""
                     }
-                    return URIMetadata(displayName, size)
+                    return URIMetadata(uri, displayName, size)
                 }
             }
-            return URIMetadata()
+            return URIMetadata(uri)
         }
     }
 }
 
-data class URIMetadata(val displayName: String = "",
-                       val size: String = "")
+data class URIMetadata(val uri: Uri,
+                       val displayName: String = "",
+                       val size: String = ""): Parcelable {
+    constructor(parcel: Parcel) : this(
+        parcel.readParcelable(Uri::class.java.classLoader),
+        parcel.readString(),
+        parcel.readString()
+    )
+
+    override fun writeToParcel(parcel: Parcel, flags: Int) {
+        parcel.writeParcelable(uri, flags)
+        parcel.writeString(displayName)
+        parcel.writeString(size)
+    }
+
+    override fun describeContents(): Int {
+        return 0
+    }
+
+    companion object CREATOR : Parcelable.Creator<URIMetadata> {
+        override fun createFromParcel(parcel: Parcel): URIMetadata {
+            return URIMetadata(parcel)
+        }
+
+        override fun newArray(size: Int): Array<URIMetadata?> {
+            return arrayOfNulls(size)
+        }
+    }
+
+}
