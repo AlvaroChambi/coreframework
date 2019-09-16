@@ -12,6 +12,15 @@
         android:elevation="4dp"
         android:visibility="gone"
         tools:visibility="visible"></FrameLayout>
+
+    <ProgressBar
+        android:id="@+id/horizontal_progress_bar"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:indeterminate="true"
+        android:visibility="gone"/>
+
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">

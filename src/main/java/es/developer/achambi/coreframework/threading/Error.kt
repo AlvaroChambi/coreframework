@@ -1,3 +1,3 @@
 package es.developer.achambi.coreframework.threading
 
-class Error : Exception()
+class Error(message: String = "") : Exception(message)

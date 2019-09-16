@@ -39,6 +39,7 @@ public abstract class BaseRequestFragment extends BaseFragment implements View.O
 
     protected void showError( Error error ) {
         View loadingFrame = getView().findViewById(getLoadingFrame());
+        loadingFrame.setVisibility(View.VISIBLE);
         loadingFrame.findViewById( R.id.base_request_progress_bar ).setVisibility( View.GONE );
         TextView errorMessage = loadingFrame.findViewById( R.id.base_request_error_message );
         errorMessage.setText( error.getMessage() );
@@ -48,7 +49,7 @@ public abstract class BaseRequestFragment extends BaseFragment implements View.O
 
     protected void showSnackBackError( Error error ) {
         hideLoading();
-        Snackbar snackbar = Snackbar.make( getView(), error.getMessage(), Snackbar.LENGTH_INDEFINITE );
+        Snackbar snackbar = Snackbar.make( getView(), error.getMessage(), Snackbar.LENGTH_SHORT );
         snackbar.show();
     }
 
