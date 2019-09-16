@@ -41,25 +41,22 @@ class URIUtils {
                     } else {
                         ""
                     }
-                    return URIMetadata(uri, displayName, size)
+                    return URIMetadata(displayName, size)
                 }
             }
-            return URIMetadata(uri)
+            return URIMetadata()
         }
     }
 }
 
-data class URIMetadata(val uri: Uri,
-                       val displayName: String = "",
-                       val size: String = ""): Parcelable {
+data class URIMetadata(val displayName: String? = "",
+                       val size: String? = ""): Parcelable {
     constructor(parcel: Parcel) : this(
-        parcel.readParcelable(Uri::class.java.classLoader),
         parcel.readString(),
         parcel.readString()
     )
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
-        parcel.writeParcelable(uri, flags)
         parcel.writeString(displayName)
         parcel.writeString(size)
     }
