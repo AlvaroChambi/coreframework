@@ -34,7 +34,6 @@ public abstract class BaseActivity extends AppCompatActivity {
         FragmentTransaction transaction = manager.beginTransaction();
 
         Bundle args = getIntent().getBundleExtra(BASE_ARGUMENTS);
-        Fragment fragment = getFragment(args);
         transaction.add(R.id.fragment_frame, getFragment(args));
         transaction.commit();
     }
