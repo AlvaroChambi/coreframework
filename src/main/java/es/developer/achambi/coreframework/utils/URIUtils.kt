@@ -1,5 +1,6 @@
 package es.developer.achambi.coreframework.utils
 
+import android.content.ContentResolver
 import android.content.Context
 import android.database.Cursor
 import android.net.Uri
@@ -7,6 +8,7 @@ import android.os.Parcel
 import android.os.Parcelable
 import android.provider.OpenableColumns
 import android.util.Log
+import android.webkit.MimeTypeMap
 
 
 class URIUtils {
@@ -40,16 +42,23 @@ class URIUtils {
                 } else {
                     ""
                 }
-                return URIMetadata(displayName, size)
+                return URIMetadata(displayName, size, getMimeType(context.contentResolver, uri))
             }
         }
         return URIMetadata()
     }
+
+    private fun getMimeType(contentResolver: ContentResolver?, uri: Uri): String? {
+        val mime = MimeTypeMap.getSingleton()
+        return mime.getExtensionFromMimeType(contentResolver?.getType(uri))
+    }
 }
 
 data class URIMetadata(val displayName: String? = "",
-                       val size: String? = ""): Parcelable {
+                       val size: String? = "",
+                       val mimeType: String? = ""): Parcelable {
     constructor(parcel: Parcel) : this(
+        parcel.readString(),
         parcel.readString(),
         parcel.readString()
     )
@@ -57,6 +66,7 @@ data class URIMetadata(val displayName: String? = "",
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         parcel.writeString(displayName)
         parcel.writeString(size)
+        parcel.writeString(mimeType)
     }
 
     override fun describeContents(): Int {
