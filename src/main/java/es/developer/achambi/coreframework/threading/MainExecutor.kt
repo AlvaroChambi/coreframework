@@ -2,6 +2,7 @@ package es.developer.achambi.coreframework.threading
 
 import android.os.Handler
 import android.os.Looper
+import java.lang.Exception
 
 import java.util.concurrent.LinkedBlockingQueue
 import java.util.concurrent.ThreadPoolExecutor
@@ -18,6 +19,9 @@ class MainExecutor private constructor(corePoolSize: Int, maximumPoolSize: Int, 
                 postSuccessOnUI(request.perform(), responseHandler)
             } catch (e: Error) {
                 postErrorOnUI(e, responseHandler)
+                e.printStackTrace()
+            } catch (e:Exception) {
+                postErrorOnUI(Error(e.toString()), responseHandler)
                 e.printStackTrace()
             }
         }
