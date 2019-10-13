@@ -12,10 +12,13 @@ import android.webkit.MimeTypeMap
 
 
 class URIUtils {
-    fun retrieveFileMetadata( context: Context, uri: Uri ): URIMetadata {
+    fun retrieveFileMetadata( context: Context, uri: Uri? ): URIMetadata {
         // The query, since it only applies to a single document, will only return
         // one row. There's no need to filter, sort, or select fields, since we want
         // all fields for one document.
+        if(uri == null) {
+            return URIMetadata()
+        }
         val cursor: Cursor? = context.contentResolver?.
             query( uri, null, null, null, null, null)
         cursor?.use {
