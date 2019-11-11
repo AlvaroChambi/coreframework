@@ -63,8 +63,7 @@ public abstract class BaseLoginFragment extends BaseFragment implements View.OnC
     @Override
     public void onClick(View view) {
         List<AuthUI.IdpConfig> providers = Arrays.asList(
-                new AuthUI.IdpConfig.EmailBuilder().build(),
-                new AuthUI.IdpConfig.GoogleBuilder().build() );
+                new AuthUI.IdpConfig.EmailBuilder().build() );
         startActivityForResult( AuthUI.getInstance()
                 .createSignInIntentBuilder()
                 .setAvailableProviders( providers )

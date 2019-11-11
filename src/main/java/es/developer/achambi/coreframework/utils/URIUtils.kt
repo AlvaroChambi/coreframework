@@ -48,7 +48,7 @@ class URIUtils {
                 return URIMetadata(displayName, size, getMimeType(context.contentResolver, uri))
             }
         }
-        return URIMetadata()
+        return URIMetadata(uri.lastPathSegment)
     }
 
     private fun getMimeType(contentResolver: ContentResolver?, uri: Uri): String? {
