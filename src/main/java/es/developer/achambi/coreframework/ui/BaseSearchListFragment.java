@@ -1,6 +1,8 @@
 package es.developer.achambi.coreframework.ui;
 
 import android.os.Bundle;
+
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -12,6 +14,8 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import es.developer.achambi.coreframework.R;
 import es.developer.achambi.coreframework.utils.GlideApp;
@@ -56,13 +60,24 @@ public abstract class BaseSearchListFragment extends BaseRequestFragment {
             onHeaderSetup( header );
         }
         recyclerView = view.findViewById(R.id.base_search_recycler_view);
-        ViewGroup.MarginLayoutParams marginParams =
-                (ViewGroup.MarginLayoutParams) recyclerView.getLayoutParams();
+        ViewGroup.LayoutParams marginParams =
+                (ViewGroup.LayoutParams) recyclerView.getLayoutParams();
         SwipeTouchHelperCallback touchHelper = provideItemTouchHelper(adapter);
         if( touchHelper != null ) {
             ItemTouchHelper itemTouchHelper = new ItemTouchHelper( touchHelper );
             itemTouchHelper.attachToRecyclerView( recyclerView );
         }
+
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                if (dy > 0)
+                    ((FloatingActionButton)view.findViewById(R.id.base_search_floating_button)).hide();
+                else if (dy < 0)
+                    ((FloatingActionButton)view.findViewById(R.id.base_search_floating_button)).show();
+            }
+        });
 
         overrideRecyclerViewMargins( marginParams );
         recyclerView.setLayoutParams( marginParams );
@@ -76,7 +91,7 @@ public abstract class BaseSearchListFragment extends BaseRequestFragment {
         return null;
     }
 
-    protected void overrideRecyclerViewMargins( ViewGroup.MarginLayoutParams marginParams ) {
+    protected void overrideRecyclerViewMargins( ViewGroup.LayoutParams marginParams ) {
     }
 
     @Override
@@ -123,7 +138,7 @@ public abstract class BaseSearchListFragment extends BaseRequestFragment {
         return R.string.search_default_hint;
     }
 
-    public void onQueryTextSubmitted(String query){}
+    public void onQueryTextSubmitted(@NonNull String query){}
 
     public void onQueryTextChanged(String newText){}
 
