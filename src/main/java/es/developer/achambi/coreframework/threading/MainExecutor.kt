@@ -13,7 +13,7 @@ class MainExecutor private constructor(corePoolSize: Int, maximumPoolSize: Int, 
     : ThreadPoolExecutor(corePoolSize, maximumPoolSize, keepAliveTime, unit, workQueue),
         ExecutorInterface {
 
-    override fun <T> executeRequest(request: Request<T>, responseHandler: ResponseHandler<T>) {
+    override fun <T> executeRequest(request: Request<T>, responseHandler: ResponseHandler<T>?) {
         execute {
             try {
                 postSuccessOnUI(request.perform(), responseHandler)
@@ -28,13 +28,13 @@ class MainExecutor private constructor(corePoolSize: Int, maximumPoolSize: Int, 
     }
 
     private fun <T> postErrorOnUI(error: Error,
-                              responseHandler: ResponseHandler<T>) {
-        MAIN_HANDLER.post { responseHandler.onError(error) }
+                              responseHandler: ResponseHandler<T>?) {
+        MAIN_HANDLER.post { responseHandler?.onError(error) }
     }
 
     private fun <T> postSuccessOnUI(response: T,
-                                responseHandler: ResponseHandler<T>) {
-        MAIN_HANDLER.post { responseHandler.onSuccess(response) }
+                                responseHandler: ResponseHandler<T>?) {
+        MAIN_HANDLER.post { responseHandler?.onSuccess(response) }
     }
 
     companion object {
