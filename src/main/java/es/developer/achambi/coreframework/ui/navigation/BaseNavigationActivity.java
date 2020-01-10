@@ -10,6 +10,7 @@ import es.developer.achambi.coreframework.R;
 
 public abstract class BaseNavigationActivity extends AppCompatActivity
         implements BottomNavigationView.OnNavigationItemSelectedListener {
+    protected BottomNavigationView navigationView;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -18,7 +19,7 @@ public abstract class BaseNavigationActivity extends AppCompatActivity
         if( savedInstanceState == null ) {
             replaceFragment( provideEntryFragment(), null );
         }
-        BottomNavigationView navigationView = findViewById(R.id.bottom_navigation);
+        navigationView = findViewById(R.id.bottom_navigation);
         navigationView.inflateMenu(provideMenuResource());
         navigationView.setOnNavigationItemSelectedListener(this);
     }
