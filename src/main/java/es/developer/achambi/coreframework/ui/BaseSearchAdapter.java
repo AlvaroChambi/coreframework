@@ -46,9 +46,9 @@ public class BaseSearchAdapter extends RecyclerView.Adapter{
                             return compare;
                         }
 
-                        if( o1.getId() > o2.getId() ) {
+                        if( o1.sortValue() > o2.sortValue() ) {
                             compare = 1;
-                        } else if( o1.getId() == o2.getId() ) {
+                        } else if( o1.sortValue() == o2.sortValue() ) {
                             compare = 0;
                         } else {
                             compare = -1;

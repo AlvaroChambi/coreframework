@@ -7,4 +7,5 @@ public interface SearchListData {
     default long getId() {
         return 0;
     }
+    default long sortValue() {return 0;}
 }
