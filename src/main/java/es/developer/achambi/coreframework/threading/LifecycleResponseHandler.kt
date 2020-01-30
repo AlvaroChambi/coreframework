@@ -12,7 +12,7 @@ class LifecycleResponseHandler<T>
         }
     }
 
-    override fun onError(error: Error) {
+    override fun onError(error: CoreError) {
         if (lifecycle.currentState.isAtLeast(Lifecycle.State.STARTED)) {
             super.onError(error)
         }

@@ -5,7 +5,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import es.developer.achambi.coreframework.R;
-import es.developer.achambi.coreframework.threading.Error;
+import es.developer.achambi.coreframework.threading.CoreError;
 
 public abstract class BaseRequestFragment extends BaseFragment implements View.OnClickListener {
     public static final float TRANSPARENT_LOADING_BACKGROUND = 0.4f;
@@ -37,7 +37,7 @@ public abstract class BaseRequestFragment extends BaseFragment implements View.O
         loadingFrame.setVisibility(View.GONE);
     }
 
-    protected void showError( Error error ) {
+    protected void showError(CoreError error ) {
         View loadingFrame = getView().findViewById(getLoadingFrame());
         loadingFrame.setVisibility(View.VISIBLE);
         loadingFrame.findViewById( R.id.base_request_progress_bar ).setVisibility( View.GONE );
@@ -47,7 +47,7 @@ public abstract class BaseRequestFragment extends BaseFragment implements View.O
         loadingFrame.findViewById( R.id.base_request_retry_text ).setVisibility(View.VISIBLE);
     }
 
-    protected void showSnackBackError( Error error ) {
+    protected void showSnackBackError(CoreError error ) {
         hideLoading();
         Snackbar snackbar = Snackbar.make( getView(), error.getMessage(), Snackbar.LENGTH_SHORT );
         snackbar.show();

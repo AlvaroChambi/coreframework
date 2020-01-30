@@ -1,6 +1,6 @@
 package es.developer.achambi.coreframework.threading
 
 interface Request<T> {
-    @Throws(Error::class)
+    @Throws(CoreError::class)
     fun perform(): T
 }

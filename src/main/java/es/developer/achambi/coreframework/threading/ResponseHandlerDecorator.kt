@@ -8,7 +8,7 @@ abstract class ResponseHandlerDecorator<T>(private val responseHandler: Response
         responseHandler.onSuccess(response)
     }
 
-    override fun onError(error: Error) {
+    override fun onError(error: CoreError) {
         responseHandler.onError(error)
     }
 }

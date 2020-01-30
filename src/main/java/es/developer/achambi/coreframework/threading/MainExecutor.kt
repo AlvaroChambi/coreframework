@@ -17,18 +17,18 @@ class MainExecutor private constructor(corePoolSize: Int, maximumPoolSize: Int, 
         execute {
             try {
                 postSuccessOnUI(request.perform(), responseHandler)
-            } catch (e: Error) {
+            } catch (e: CoreError) {
                 postErrorOnUI(e, responseHandler)
                 e.printStackTrace()
             } catch (e:Exception) {
-                postErrorOnUI(Error(e.toString()), responseHandler)
+                postErrorOnUI(CoreError(e.toString()), responseHandler)
                 e.printStackTrace()
             }
         }
     }
 
-    private fun <T> postErrorOnUI(error: Error,
-                              responseHandler: ResponseHandler<T>?) {
+    private fun <T> postErrorOnUI(error: CoreError,
+                                  responseHandler: ResponseHandler<T>?) {
         MAIN_HANDLER.post { responseHandler?.onError(error) }
     }
 

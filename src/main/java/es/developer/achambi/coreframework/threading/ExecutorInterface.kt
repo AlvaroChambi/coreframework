@@ -8,7 +8,7 @@ class MockExecutor : ExecutorInterface {
     override fun <T> executeRequest(request: Request<T>, responseHandler: ResponseHandler<T>?) {
         try {
             responseHandler?.onSuccess(request.perform())
-        } catch (error: Error) {
+        } catch (error: CoreError) {
             responseHandler?.onError(error)
         }
     }
