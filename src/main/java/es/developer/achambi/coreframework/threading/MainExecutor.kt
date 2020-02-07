@@ -2,6 +2,7 @@ package es.developer.achambi.coreframework.threading
 
 import android.os.Handler
 import android.os.Looper
+import com.crashlytics.android.Crashlytics
 import java.lang.Exception
 
 import java.util.concurrent.LinkedBlockingQueue
@@ -19,9 +20,11 @@ class MainExecutor private constructor(corePoolSize: Int, maximumPoolSize: Int, 
                 postSuccessOnUI(request.perform(), responseHandler)
             } catch (e: CoreError) {
                 postErrorOnUI(e, responseHandler)
+                Crashlytics.logException(e)
                 e.printStackTrace()
             } catch (e:Exception) {
                 postErrorOnUI(CoreError(e.toString()), responseHandler)
+                Crashlytics.logException(e)
                 e.printStackTrace()
             }
         }
