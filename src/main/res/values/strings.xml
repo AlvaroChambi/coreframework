@@ -9,4 +9,5 @@
 
     <string name="empty_value">-</string>
     <string name="load_page_error_text">Failed to retrieve next page</string>
+    <string name="default_error_message">Something went wrong, please try again later.</string>
 </resources>

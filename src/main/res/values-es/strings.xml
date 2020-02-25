@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">CoreFramework</string>
+    <string name="search_default_hint">Buscar</string>
+    <string name="save_action_text">GUARDAR</string>
+    <string name="user_login_text">Iniciar sesión</string>
+    <string name="profile_activity_title">Perfil</string>
+    <string name="user_logout_text">Cerrar sesión</string>
+    <string name="error_message_retry">Reintentar</string>
+
+    <string name="empty_value">-</string>
+    <string name="load_page_error_text">No se pudo recuperar la página</string>
+    <string name="default_error_message">Algo ha ido mal, por favor inténtelo de nuevo mas tarde.</string>
+</resources>

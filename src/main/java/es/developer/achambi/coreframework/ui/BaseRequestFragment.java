@@ -42,7 +42,9 @@ public abstract class BaseRequestFragment extends BaseFragment implements View.O
         loadingFrame.setVisibility(View.VISIBLE);
         loadingFrame.findViewById( R.id.base_request_progress_bar ).setVisibility( View.GONE );
         TextView errorMessage = loadingFrame.findViewById( R.id.base_request_error_message );
-        errorMessage.setText( error.getMessage() );
+        if(!error.getMessage().isEmpty()) {
+            errorMessage.setText( error.getMessage() );
+        }
         errorMessage.setVisibility(View.VISIBLE);
         loadingFrame.findViewById( R.id.base_request_retry_text ).setVisibility(View.VISIBLE);
     }
