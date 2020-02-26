@@ -68,17 +68,6 @@ public abstract class BaseSearchListFragment extends BaseRequestFragment {
             itemTouchHelper.attachToRecyclerView( recyclerView );
         }
 
-        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
-            @Override
-            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
-                super.onScrolled(recyclerView, dx, dy);
-                if (dy > 0)
-                    ((FloatingActionButton)view.findViewById(R.id.base_search_floating_button)).hide();
-                else if (dy < 0)
-                    ((FloatingActionButton)view.findViewById(R.id.base_search_floating_button)).show();
-            }
-        });
-
         overrideRecyclerViewMargins( marginParams );
         recyclerView.setLayoutParams( marginParams );
         layoutManager = new LinearLayoutManager(getActivity());
