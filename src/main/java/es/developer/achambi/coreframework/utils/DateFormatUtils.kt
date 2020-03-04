@@ -25,15 +25,25 @@ object DateFormatUtils {
         return dateFormat.format(calendar.time)
     }
 
-    fun formatDateRange(startMonth: Int, endMonth: Int): String {
-        val dateFormat = SimpleDateFormat(RANGE_DATE_MONTH_DAY, Locale.getDefault())
+    fun getStartAndEndDate(startMonth: Int, endMonth: Int): Pair<Date, Date>  {
         val calendar = Calendar.getInstance()
+
         calendar.set(Calendar.MONTH, startMonth)
         calendar.set(Calendar.DAY_OF_MONTH, 1)
-        var formatted = "Desde el " + dateFormat.format(calendar.time)
+        val startDate = calendar.time
+
         calendar.set(Calendar.MONTH, endMonth)
         calendar.set(Calendar.DAY_OF_MONTH, calendar.getActualMaximum(Calendar.DAY_OF_MONTH))
-        formatted += " hasta el " + dateFormat.format(calendar.time)
+        val endDate = calendar.time
+
+        return Pair<Date, Date>( startDate, endDate )
+    }
+
+    fun formatDateRange(startMonth: Int, endMonth: Int): String {
+        val dateFormat = SimpleDateFormat(RANGE_DATE_MONTH_DAY, Locale.getDefault())
+        val dates = getStartAndEndDate(startMonth, endMonth)
+        var formatted = "Desde el " + dateFormat.format(dates.first.time)
+        formatted += " hasta el " + dateFormat.format(dates.second.time)
         return formatted
     }
 }
