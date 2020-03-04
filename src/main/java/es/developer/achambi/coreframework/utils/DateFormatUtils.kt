@@ -39,6 +39,7 @@ object DateFormatUtils {
         return Pair<Date, Date>( startDate, endDate )
     }
 
+    //TODO add string resource format and avoid harcoded
     fun formatDateRange(startMonth: Int, endMonth: Int): String {
         val dateFormat = SimpleDateFormat(RANGE_DATE_MONTH_DAY, Locale.getDefault())
         val dates = getStartAndEndDate(startMonth, endMonth)
