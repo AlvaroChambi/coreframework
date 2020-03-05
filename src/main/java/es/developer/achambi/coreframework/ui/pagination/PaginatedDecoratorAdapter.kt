@@ -5,6 +5,7 @@ import es.developer.achambi.coreframework.databinding.LoadingItemBinding
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import android.view.View
+import androidx.recyclerview.widget.SortedList
 
 import es.developer.achambi.coreframework.R
 import es.developer.achambi.coreframework.ui.SearchAdapterDecorator
@@ -17,7 +18,7 @@ class PaginatedDecoratorAdapter(private val paginatedInterface: PaginatedInterfa
         return R.layout.loading_item
     }
 
-    override fun createViewHolder(rootView: View): LoadingHolder {
+    override fun createViewHolder(rootView: View, rootData: SortedList<*>): LoadingHolder {
         val binding : LoadingItemBinding? = DataBindingUtil.bind(rootView)
         return LoadingHolder(binding)
     }

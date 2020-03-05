@@ -25,8 +25,6 @@ public abstract class SearchAdapterDecorator<D extends SearchListData,VH extends
 
     protected SearchAdapterDecorator<D,VH> adapter;
     protected ArrayList<D> data;
-    private OnItemClickedListener<D> listener;
-    private OnViewClickedListener<D,VH> viewClickedListener;
 
     public SearchAdapterDecorator( SearchAdapterDecorator<D,VH> adapter ) {
         this.adapter = adapter;
@@ -46,45 +44,15 @@ public abstract class SearchAdapterDecorator<D extends SearchListData,VH extends
         this.data = data;
     }
 
-    public void setViewClickedListener( OnViewClickedListener<D, VH> viewClickedListener ) {
-        this.viewClickedListener = viewClickedListener;
-    }
-
-    public void setListener( OnItemClickedListener<D> listener ) {
-        this.listener = listener;
-    }
-
     RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType,
                                                       final SortedList<D> rootData ) {
         if( isValidAdapter( viewType ) ) {
             View rootView = LayoutInflater.from(parent.getContext())
                     .inflate(getLayoutResource(), parent, false);
-            final VH viewHolder = createViewHolder( rootView );
-            registerListeners( viewHolder, rootData );
+            final VH viewHolder = createViewHolder( rootView, rootData );
             return viewHolder;
         }
         return adapter.onCreateViewHolder( parent, viewType, rootData );
-    }
-
-    protected void registerListeners( final VH viewHolder, final SortedList<D> rootData ) {
-        overrideClickableView(viewHolder).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                int position = viewHolder.getAdapterPosition();
-                if( position != NO_POSITION ) {
-                    if( listener != null ) {
-                        listener.onItemClicked( rootData.get( position ) );
-                    } else if( viewClickedListener != null ) {
-                        viewClickedListener
-                                .onViewClicked( rootData.get( position ), viewHolder );
-                    }
-                }
-            }
-        });
-    }
-
-    protected View overrideClickableView( RecyclerView.ViewHolder viewHolder ) {
-        return viewHolder.itemView;
     }
 
     void onBindViewHolder( RecyclerView.ViewHolder holder, final SearchListData item) {
@@ -130,7 +98,7 @@ public abstract class SearchAdapterDecorator<D extends SearchListData,VH extends
     }
 
     public abstract int getLayoutResource();
-    public abstract VH createViewHolder( @NonNull View rootView );
+    public abstract VH createViewHolder( @NonNull View rootView, @NonNull SortedList rootData );
     public abstract void bindViewHolder( @NonNull VH holder, @NonNull D item );
     public int getAdapterViewType() {
         return DEFAULT_VIEW_TYPE;
