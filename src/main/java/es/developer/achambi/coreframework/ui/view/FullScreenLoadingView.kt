@@ -26,8 +26,10 @@ class FullScreenLoadingView @JvmOverloads constructor(
         progress_background.visibility = View.GONE
     }
 
-    fun showError() {
+    fun showError(errorMessage: String) {
+        progress_background.visibility = View.VISIBLE
         base_request_progress_bar.visibility = View.GONE
         base_request_error_message.visibility = View.VISIBLE
+        base_request_error_message.text = errorMessage
     }
 }

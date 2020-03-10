@@ -1,5 +1,4 @@
 <resources>
-    <string name="app_name">CoreFramework</string>
     <string name="search_default_hint">Buscar</string>
     <string name="save_action_text">GUARDAR</string>
     <string name="user_login_text">Iniciar sesión</string>
