@@ -10,7 +10,7 @@ import java.util.concurrent.TimeUnit;
 public class MainExecutor extends ThreadPoolExecutor {
     private static final long KEEP_ALIVE_TIME = 0;
     private static final int THREAD_NUMBERS = 4;
-    private static final Handler MAIN_HANDLER = new Handler( Looper.getMainLooper() );
+   // private static final Handler MAIN_HANDLER = new Handler( Looper.getMainLooper() );
 
     private MainExecutor(int corePoolSize, int maximumPoolSize, long keepAliveTime,
                         TimeUnit unit, LinkedBlockingQueue<Runnable> workQueue) {
@@ -36,23 +36,23 @@ public class MainExecutor extends ThreadPoolExecutor {
 
     private void postErrorOnUI( final Error error,
                                 final ResponseHandler responseHandler ) {
-        MAIN_HANDLER.post(new Runnable() {
+     /*   MAIN_HANDLER.post(new Runnable() {
             @Override
             public void run() {
                 responseHandler.onError( error );
             }
-        });
+        });*/
     }
 
     private void postSuccessOnUI( final Response response,
                                   final ResponseHandler responseHandler ) {
-        MAIN_HANDLER.post(new Runnable() {
+       /* MAIN_HANDLER.post(new Runnable() {
             @SuppressWarnings("unchecked")
             @Override
             public void run() {
                 responseHandler.onSuccess( response );
             }
-        });
+        });*/
     }
 
     public static MainExecutor buildExecutor() {
