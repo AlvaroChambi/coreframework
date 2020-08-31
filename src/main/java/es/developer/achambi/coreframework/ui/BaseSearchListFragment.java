@@ -110,6 +110,11 @@ public abstract class BaseSearchListFragment extends BaseRequestFragment {
         adapter.updateData();
     }
 
+    public void setFloatingButtonListener(View.OnClickListener listener) {
+        this.getView().findViewById(R.id.base_floating_button).setVisibility(View.VISIBLE);
+        this.getView().findViewById(R.id.base_floating_button).setOnClickListener(listener);
+    }
+
     public abstract SearchAdapterDecorator provideAdapter();
 
     public int getHeaderLayoutResource() {
